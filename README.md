@@ -35,3 +35,4 @@ LoosySynth is constantly listening to messages, and it is ready to recieve a mor
 ### Displacement messages
 These messages used to control the melody recieve the X and Y axis displacements we were talking about before, along with some other parameters:
 
+To be continued...
