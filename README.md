@@ -23,3 +23,8 @@ On top (or bottom) of that, a chord sound is generated. The chords can contain a
 ### Scales and chords
 The user can specify the scales and chords in a specific fashion detailed below. The notes don't need to be stadardly tuned techincally, opening way
 for microtonal experimentation. 
+
+## Project context
+
+This project is an adaptation of one previous project of mine called Loosy. Loosy practically uses LoosySynth, but with some editing to make it fit perfectly.
+Loosy additionally has another module developed in Unreal Engine, called LoosyController, that controlles the synth from a Hololens 2 glasses. For more info, [here](https://github.com/juan260/Loosy)'s the repository.
