@@ -90,7 +90,7 @@ After starting LoosySynth we send the following messages:
 
 |Type| Int|Int|String| Float|Float|Float|
 |----|----|---|------|------|------|---|
-|Value|2|0| "Chromatic"|60|61|63|
+|Value|2|0| "Diminished"|60|61|63|
 
 * Create Major chord:
 
