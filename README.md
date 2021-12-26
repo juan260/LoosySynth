@@ -149,4 +149,17 @@ After starting LoosySynth we send the following messages:
 
 * Change the chord to F minor:
 
-|Type|Int|Int|String|String
+|Type|Int|Int|String|String|
+|----|---|---|------|------|
+|Value|1|1|"F"|"Minor"|
+
+* Change the scale to Eb major:
+
+|Type|Int|Int|String|String|
+|----|---|---|------|------|
+|Value|1|0|"Eb"|"Major"|
+
+## Future development and last notes
+The synth might have some kind of note on and off messages, with some kind of ASDR envelope added to it, especially if someone contacts the developer with a cool use for the synth! Please feel free to contact me with any kind of question, suggestion or bug. I still need to test it fully. 
+
+Currently I am developing an interface on TouchOSC to control the synth with the phone! Contact me also if you want to keep updated on that.
