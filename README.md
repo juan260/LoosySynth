@@ -35,4 +35,15 @@ LoosySynth is constantly listening to messages, and it is ready to recieve a mor
 ### Displacement messages
 These messages used to control the melody recieve the X and Y axis displacements we were talking about before, along with some other parameters:
 
+| Name | Type | Description|
+|:-------:|:------:|:-----------------:|
+|Message type| Int | Should be 0.|
+|Chords Silence| Int |0 if the chords should be silent.|
+|Chords cutoff| Float | Cutoff frquency for the low pass filter of the chords.|
+|Melody Silence| Int | 0 if the melody should remain silent.|
+|Melody gain| Float | Gain (typically 0-1) for the melody.|
+|Melody displacement| Float | Controls the note of the scale, 0 would be the root, 1 the second note, -1 the previous to the root etc.|
+|Melody cutoff| Float | Cutoff frequency of the low pass filter applied to the melody.|
+
+
 To be continued...
