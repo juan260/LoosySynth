@@ -31,7 +31,7 @@ fun float[] extractFloatsFromOscMsg(OscMsg msg){
 1 => int CHORDCHANGE;
 0 => int NEWSCALE;
 1 => int NEWCHORD;
-9999 => int DEFAULTPORT;
+999 => int DEFAULTPORT;
   
 class LoosySynth{
     OscMsg msg; // OSC Message
@@ -87,6 +87,7 @@ class LoosySynth{
                       if (msg.getInt(3) == 0 || scaleHandler.inSilence()){
                           // Invalid or silent scale
                           0.0 => melodyOscillator.gain;
+                          
                       } else {
                           // Adjust the note, the gain and the filter of the melody
                           msg.getFloat(4)*0.6 => melodyOscillator.gain;
@@ -95,7 +96,9 @@ class LoosySynth{
                           melodyOscillator.freq;
                           
                           msg.getFloat(6) => melodyFilter.freq;
+                          
                       }
+                      
                   }
                   // Control message
                   else if(msg.getInt(0) == CONTROLMSG){
@@ -113,8 +116,8 @@ class LoosySynth{
                     }
                   }
                   // Initialization message
-               else if(msg.getInt(0)==INITMSG && msg.typetag.charAt(1)=='i'msg.typetag.charAt(2)=='s'){
-                      
+               else if(msg.getInt(0)==INITMSG && msg.typetag.charAt(1)=='i' && msg.typetag.charAt(2)=='s'){
+                     
                    // Scale initialization
                     if (msg.getInt(1) == NEWSCALE){
                               extractFloatsFromOscMsg(msg) @=> float extractedFloats[];
@@ -132,6 +135,7 @@ class LoosySynth{
                 
            
        }
+    }
        
 //       Funto start the synth.
 //       Ins: the port from where to expect the messages.      
@@ -146,7 +150,7 @@ class LoosySynth{
         {   
             oin =>now;
             while(oin.recv(msg))
-            {
+            { 
               handleMessage(msg);
               
             }
