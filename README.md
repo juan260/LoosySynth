@@ -69,26 +69,32 @@ The multiple field "Notes" can express the chord or scale **starting** on an arb
 ### Message use example
 After starting LoosySynth we send the following messages:
 * Create Major scale:
+
 |Type| Int|Int|String| Float|Float|Float|Float|Float|Float|Float|Float|
 |Value|2|0| "Major"|60|62|64|65|67|69|71|72|
 
 * Create Minor scale:
+
 |Type| Int|Int|String| Float|Float|Float|Float|Float|Float|Float|Float|
 |Value|2|0| "Minor"|60|62|63|65|67|68|70|72|
 
 * Create Chromatic scale:
+
 |Type| Int|Int|String| Float|Float|
 |Value|2|0| "Chromatic"|60|61|
 
 * Create Diminished scale:
+
 |Type| Int|Int|String| Float|Float|Float|
 |Value|2|0| "Chromatic"|60|61|63|
 
 * Create Major chord:
+
 |Type| Int|Int|String| Float|Float|Float|
 |Value|2|1| "Major"|60|64|67|
 
 * Create Minor chord:
+
 |Type| Int|Int|String| Float|Float|Float|
 |Value|2|1| "Minor"|60|63|67|
 
