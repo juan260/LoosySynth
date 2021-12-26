@@ -83,26 +83,70 @@ After starting LoosySynth we send the following messages:
 * Create Chromatic scale:
 
 |Type| Int|Int|String| Float|Float|
+|----|----|---|------|------|------|
 |Value|2|0| "Chromatic"|60|61|
 
 * Create Diminished scale:
 
 |Type| Int|Int|String| Float|Float|Float|
+|----|----|---|------|------|------|---|
 |Value|2|0| "Chromatic"|60|61|63|
 
 * Create Major chord:
 
 |Type| Int|Int|String| Float|Float|Float|
+|----|----|---|------|------|------|-----|
 |Value|2|1| "Major"|60|64|67|
 
 * Create Minor chord:
 
 |Type| Int|Int|String| Float|Float|Float|
+|----|----|---|------|------|------|----|
 |Value|2|1| "Minor"|60|63|67|
 
+* Set Gb Major scale:
+
+|Type| Int|Int|String| String|
+|----|----|---|------|------|
+|Value|1|0| "Gb"|"Major"|
 
 
+* Set Db Major chord:
 
+|Type| Int|Int|String| String|
+|----|----|---|------|------|
+|Value|1|1| "Db"|"Major"|
 
+* Play Note Eb in the melody with the filter half way through and gain almost all the way up and the chord with the filter fully opened:
 
-To be continued...
+|Type|Int|Int|Float|Int|Float|Float|Float|
+|----|---|---|-----|---|-----|-----|-----|
+|Value|0 |1  |20000.0|1|0.9|1.0|1000.0|
+
+* Play Note C in the melody with the filter closed (no sound) and gain half way (half amplitude) and the chord with the filter half way:
+
+|Type|Int|Int|Float|Int|Float|Float|Float|
+|----|---|---|-----|---|-----|-----|-----|
+|Value|0 |1  |1000.0|1|0.5|-1.0|0.0|
+
+* Play Note E (not in the scale) in the melody with the filter fully open and gain all the way up and the chord with the filter closed:
+
+|Type|Int|Int|Float|Int|Float|Float|Float|
+|----|---|---|-----|---|-----|-----|-----|
+|Value|0 |1  |0.0|1|1.0|2.5|20000.0|
+
+* Same as before but everything is silent.
+
+|Type|Int|Int|Float|Int|Float|Float|Float|
+|----|---|---|-----|---|-----|-----|-----|
+|Value|0 |0  |0.0|0|1.0|2.5|20000.|
+
+* Play Note Ab in the melody with the filter fully open and gain all the way up and the chord with the filter closed:
+
+|Type|Int|Int|Float|Int|Float|Float|Float|
+|----|---|---|-----|---|-----|-----|-----|
+|Value|0 |1  |20000.0|1|1.0|4|20000.0|
+
+* Change the chord to F minor:
+
+|Type|Int|Int|String|String
