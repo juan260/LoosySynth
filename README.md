@@ -71,11 +71,13 @@ After starting LoosySynth we send the following messages:
 * Create Major scale:
 
 |Type| Int|Int|String| Float|Float|Float|Float|Float|Float|Float|Float|
+|----|----|---|------|------|------|----|-----|-----|-----|-----|-----|
 |Value|2|0| "Major"|60|62|64|65|67|69|71|72|
 
 * Create Minor scale:
 
 |Type| Int|Int|String| Float|Float|Float|Float|Float|Float|Float|Float|
+|----|----|---|------|------|------|----|-----|-----|-----|-----|-----|
 |Value|2|0| "Minor"|60|62|63|65|67|68|70|72|
 
 * Create Chromatic scale:
