@@ -30,8 +30,8 @@ fun float[] extractFloatsFromOscMsg(OscMsg msg){
 0 => int SCALECHANGE;
 1 => int CHORDCHANGE;
 0 => int NEWSCALE;
-1 => int SCALEPOSCHANGE;
-2 => int NEWCHORD;
+1 => int NEWCHORD;
+9999 => int DEFAULTPORT;
   
 class LoosySynth{
     OscMsg msg; // OSC Message
@@ -48,6 +48,7 @@ class LoosySynth{
     0.5 => masterReverb.gain; 
     0.6 => masterDelay.gain;
     
+    
     // We adjust the necessary parameters
     .5 => masterReverb.mix;
     .6::second => masterDelay.max => masterDelay.delay; 
@@ -58,6 +59,7 @@ class LoosySynth{
     // Creacion necessary handlers
     ScaleHandler scaleHandler;
     ChordOscHandler chordOscHandler;
+    
     chordOscHandler.connect(masterReverb);
     
     // Assign Middle C to the oscillator, even though it will start in silence
@@ -71,29 +73,28 @@ class LoosySynth{
         if(msg.typetag.charAt(0) == 'i'){
                   if(msg.getInt(0) == DISPLACEMENTMSG && msg.typetag == "iififff"){
                       // Note message
-                      if (msg.getInt(1) == 0 || msg.getFloat(2)==0.0) {
-                          // Invalid or silent
+                      if (msg.getInt(1) == 0) {
+                          // Invalid or silent chord
                           chordOscHandler.setGain(0.0);
                          
                       } else {
                           // Adjust gain and cutoff Freq
-                          chordOscHandler.setGain(Math.pow(msg.getFloat(2),1/7));
+                          
                           chordOscHandler.setFilterCutoff(
                           msg.getFloat(2));
                       }
                       
                       if (msg.getInt(3) == 0 || scaleHandler.inSilence()){
-                          // Invalid message or scale
+                          // Invalid or silent scale
                           0.0 => melodyOscillator.gain;
                       } else {
-                          // Adjust the note and the filter of the melody
+                          // Adjust the note, the gain and the filter of the melody
                           msg.getFloat(4)*0.6 => melodyOscillator.gain;
                           scaleHandler.getRoundedFreqFromMidi(
                           msg.getFloat(5)+60)  => 
                           melodyOscillator.freq;
                           
-                          Math.pow(Math.fabs(msg.getFloat(6)+50.0), 
-                          2) => melodyFilter.freq;
+                          msg.getFloat(6) => melodyFilter.freq;
                       }
                   }
                   // Control message
@@ -112,16 +113,16 @@ class LoosySynth{
                     }
                   }
                   // Initialization message
-               else if(msg.getInt(0)==INITMSG && msg.typetag.charAt(1)=='i'){
+               else if(msg.getInt(0)==INITMSG && msg.typetag.charAt(1)=='i'msg.typetag.charAt(2)=='s'){
                       
                    // Scale initialization
-                    if (msg.getInt(1) == NEWSCALE && msg.typetag.charAt(2)=='s'){
+                    if (msg.getInt(1) == NEWSCALE){
                               extractFloatsFromOscMsg(msg) @=> float extractedFloats[];
                               scaleHandler.addSetToTableFromMidi(msg.getString(2), extractedFloats);
                               
 
 
-                  } else if(msg.getInt(1) == NEWCHORD && msg.typetag.charAt(2)=='s') {
+                  } else if(msg.getInt(1) == NEWCHORD) {
                       // Chord initialization
                       extractFloatsFromOscMsg(msg) @=> float extractedFloats[];
                       chordOscHandler.addChordToTable(extractedFloats, msg.getString(2));
@@ -129,7 +130,7 @@ class LoosySynth{
               }
                   
                 
-           }
+           
        }
        
 //       Funto start the synth.
@@ -139,6 +140,7 @@ class LoosySynth{
            
         port => oin.port;
         oin.listenAll();
+        chordOscHandler.setGain(Math.pow(0.9,1/7));
         masterGain => dac;
         while(true)
         {   
@@ -156,4 +158,4 @@ class LoosySynth{
 }
 // Start of the synth
 LoosySynth s;
-s.start(9999);
+s.start(DEFAULTPORT);
