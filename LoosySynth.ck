@@ -43,6 +43,7 @@ class LoosySynth{
     masterReverb => masterGain;
     LPF melodyFilter => masterReverb;
     SawOsc melodyOscillator => melodyFilter;
+    //Flute melodyOscillator => melodyFilter;
     0.2 => masterGain.gain; // Turn down the volumes
     0.2 => melodyOscillator.gain;
     0.5 => masterReverb.gain; 
@@ -146,6 +147,7 @@ class LoosySynth{
         oin.listenAll();
         chordOscHandler.setGain(Math.pow(0.9,1/7));
         masterGain => dac;
+        //melodyOscillator.noteOn(100);
         while(true)
         {   
             oin =>now;
