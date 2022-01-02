@@ -38,49 +38,50 @@ class LoosySynth{
     OscIn oin; // OSC client to recieve messages
     
     // Conection of the signal chain
-    JCRev masterReverb;
-    Delay masterDelay;
-    Gain masterGain; 
-    Gain delayFeedback;
-    Dyno compressor;
-    Dyno limiter;
+    JCRev masterReverb[2];
+    Delay masterDelay[2];
+    Gain masterGain[2]; 
+    Gain delayFeedback[2];
+    //Dyno compressor[2];
+    //Dyno limiter[2];
     // On top of the delay we add a direct signal
     
-    LPF melodyFilter => masterReverb;
+    LPF melodyFilter => masterReverb[0];
+    melodyFilter => masterReverb[1];
     
     //SawOsc melodyOscillator => melodyFilter;
     //Flute melodyOscillator => melodyFilter;
     Moog melodyOscillator => melodyFilter;
     0 => melodyOscillator.filterQ;
     0.03 => melodyOscillator.lfoDepth;
-    4 => melodyOscillator.lfoSpeed;
+    8 => melodyOscillator.lfoSpeed;
     1 => melodyOscillator.volume;
     1 => melodyOscillator.noteOn;
     440 => melodyOscillator.freq;
-    
+    for(0=>int i;i<2;i++){
 
-        masterReverb => masterDelay => masterGain;
-        masterReverb => masterGain => compressor => limiter;
-        5 => masterGain.gain; // Turn down the volumes
+        masterReverb[i] => masterDelay[i] => masterGain[i];
+        masterReverb[i] => masterGain[i];// => compressor[i] => limiter[i];
+        0.4 => masterGain[i].gain; // Turn down the volumes
         //0.2 => melodyOscillator.gain;
-        //0.5 => masterReverb.gain; 
-        0.6 => masterDelay.gain;
+        0.5 => masterReverb[i].gain; 
+        0.6 => masterDelay[i].gain;
         
-        compressor.compress();
-        limiter.limit();
+        //compressor[i].compress();
+        //limiter[i].limit();
         
         // We adjust the necessary parameters
-        .5 => masterReverb.mix;
-        .6::second => masterDelay.max => masterDelay.delay; 
+        .5 => masterReverb[i].mix;
+        .6::second => masterDelay[i].max => masterDelay[i].delay; 
         // Delay feedback
-        masterDelay => delayFeedback => masterDelay;
-        0.4 => delayFeedback.gain;
-    
+        masterDelay[i] => delayFeedback[i] => masterDelay[i];
+        0.4 => delayFeedback[i].gain;
+    }
     // Creacion necessary handlers
     ScaleHandler scaleHandler;
     ChordOscHandler chordOscHandler;
     
-    chordOscHandler.connect(masterReverb);
+    chordOscHandler.connect(masterReverb[0], masterReverb[1]);
     
     // Assign Middle C to the oscillator, even though it will start in silence
     Std.mtof(60) => melodyOscillator.freq;
@@ -98,7 +99,6 @@ class LoosySynth{
                           chordOscHandler.setFilterCutoff(
                           Math.exp(msg.getFloat(2)));
                           chordOscHandler.setGain(1);
-                          
                       }
                       
                       if (scaleHandler.inSilence()){
@@ -107,14 +107,14 @@ class LoosySynth{
                           
                       } else if(msg.getInt(3)) {
                           // Adjust the note, the gain and the filter of the melody
-                          msg.getFloat(4) => melodyOscillator.volume;
+                          msg.getFloat(4)*0.9 => melodyOscillator.volume;
                           scaleHandler.getRoundedFreqFromMidi(
                           msg.getFloat(5)+60)  => 
                           melodyOscillator.freq;
                           
                           Math.exp(msg.getFloat(6)) => melodyFilter.freq;
                           //(msg.getFloat(6)) => melodyFilter.freq;
-                        
+
                           
                           
                             
@@ -152,7 +152,7 @@ class LoosySynth{
                   }
               }
                   
-            
+                
            
        }
     }
@@ -165,8 +165,8 @@ class LoosySynth{
         port => oin.port;
         oin.listenAll();
         
-        limiter=>dac;
-        //masterGain => dac;
+        masterGain[0] => dac.left;
+        masterGain[1] => dac.right;
         //melodyOscillator.noteOn(100);
         
         while(true)
@@ -175,8 +175,9 @@ class LoosySynth{
             while(oin.recv(msg))
             { 
               handleMessage(msg);
+              
             }
-            //0.005::second +=> now;
+            0.005::second +=> now;
 
                 
         }
