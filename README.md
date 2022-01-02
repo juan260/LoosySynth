@@ -160,7 +160,7 @@ After starting LoosySynth we send the following messages:
 |Value|1|0|"Eb"|"Major"|
 
 ## Prerequisites and launch
-To launch the synth the user need to have [Chuck](https://chuck.stanford.edu/) installed. I launch the synth from the Mac terminal, but I'm pretty sure the command should work for any OS with chuck installed, maybe with slight variations:
+To launch the synth the user need to have [ChucK](https://chuck.stanford.edu/) installed. I launch the synth from the Mac terminal, but I'm pretty sure the command should work for any OS with ChucK installed, maybe with slight variations:
 
 'chuck --bufsize:512 start.ck'
 
