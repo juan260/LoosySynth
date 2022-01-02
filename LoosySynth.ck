@@ -53,7 +53,7 @@ class LoosySynth{
     Moog melodyOscillator => melodyFilter;
     0 => melodyOscillator.filterQ;
     0.03 => melodyOscillator.lfoDepth;
-    4 => melodyOscillator.lfoSpeed;
+    3 => melodyOscillator.lfoSpeed;
     1 => melodyOscillator.volume;
     1 => melodyOscillator.noteOn;
     440 => melodyOscillator.freq;
@@ -61,7 +61,7 @@ class LoosySynth{
 
         masterReverb => masterDelay => masterGain;
         masterReverb => masterGain => compressor => limiter;
-        5 => masterGain.gain; // Turn down the volumes
+        4 => masterGain.gain; // Turn down the volumes
         //0.2 => melodyOscillator.gain;
         //0.5 => masterReverb.gain; 
         0.6 => masterDelay.gain;
