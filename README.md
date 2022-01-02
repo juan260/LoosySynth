@@ -159,7 +159,13 @@ After starting LoosySynth we send the following messages:
 |----|---|---|------|------|
 |Value|1|0|"Eb"|"Major"|
 
-## Future development and last notes
-The synth might have some kind of note on and off messages, with some kind of ASDR envelope added to it, especially if someone contacts the developer with a cool use for the synth! Please feel free to contact me with any kind of question, suggestion or bug. I still need to test it fully. 
+## Prerequisites and launch
+To launch the synth the user need to have [Chuck](https://chuck.stanford.edu/) installed. I launch the synth from the Mac terminal, but I'm pretty sure the command should work for any OS with chuck installed, maybe with slight variations:
 
-Currently I am developing an interface on TouchOSC to control the synth with the phone! Contact me also if you want to keep updated on that.
+'chuck --bufsize:512 start.ck'
+
+The _bufsize_ is irrelevant, I found that this buffer size works well with my computer but a lower buffer size will generate less latency if the machine can handle it. Latency shouldn't be a worry in any case because it will probably be very small compared to the one introduced by the OSC communication.
+
+## Future development and last notes
+The synth might have at some point some kind of note on and off messages, with some kind of ASDR envelope added to it, especially if someone contacts me (the developer) with a cool use for the synth! Please feel free to contact me with any kind of question, suggestion, bug or possible application. I still need to test it in more depth. 
+
