@@ -2,7 +2,10 @@
 A very simple synth built on Chuck language, designed to be controlled from an external source through OSC.
 It has functionality to store user created scales and chords, which will sound through as melody and one constant chord. 
 The controls for the melody are very nonstandard, 
-but could turn out very usefull in a bunch of situations, especially in the context of new technologies.
+but could turn out very usefull in a bunch of situations, especially in the context of new technologies, and high-latency uses,
+or to create ambient experimental music.
+
+A demo of how it sounds can be found [here](https://youtu.be/4PMtuVJHU9g).
 
 ## Basic functionality
 ### Melody
