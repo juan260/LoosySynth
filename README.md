@@ -11,7 +11,7 @@ A demo of how it sounds can be found [here](https://youtu.be/4PMtuVJHU9g).
 ### Melody
 The melody works from the idea of displacement from a standard origin of coordinates point. In that sense, for example, it's simillar to an OSC controlled theremin, that recieves two values: 
 
-* The Y axis displacement from the origin and the X axis displacement. The Y axis controlls the cutoff frequency of a low-pass filter, meaning that the value of the Y axis should be in Hertz, ranging from 0 to 20k (approximately) for a full range of timbres, from dark to straight sawtooth. 
+* The Y axis displacement from the origin and the X axis displacement. The Y axis controlls cutoff frequency of a low-pass filter, meaning that the value of the Y axis should be in Hertz, ranging from 0 to 20k (approximately) for a full range of timbres, from dark to straight sawtooth. 
 
 * The X axis displacement controlls the displacement from the root note inside the scale. For example, if we are in a D major scale, 0 displacement would mean
  the note D, displacement 1 would correspond to E, 2 to F#, and the same applies for negative numbers. The non-integer displacement values will have an
@@ -42,11 +42,13 @@ These messages used to control the melody recieve the X and Y axis displacements
 |:-------:|:------:|:-----------------:|
 |Message type| Int | Should be 0.|
 |Chords Silence| Int |0 if the chords should be silent.|
-|Chords cutoff| Float | Cutoff frquency for the low pass filter of the chords.|
+|Chords cutoff| Float | Natural logarithm of the cutoff frequency for the low pass filter of the chords.|
 |Melody Silence| Int | 0 if the melody should remain silent.|
 |Melody gain| Float | Gain (typically 0-1) for the melody.|
 |Melody displacement| Float | Controls the note of the scale, 0 would be the root, 1 the second note, -1 the previous to the root etc.|
-|Melody cutoff| Float | Cutoff frequency of the low pass filter applied to the melody.|
+|Melody cutoff| Float | Natural logarithm of the cutoff frequency of the low pass filter applied to the melody.|
+
+The reason why the melody cutoff receives the loraithm and not just the frequency is because in that way one can just assign a linear controller to this parameter, and the sound produced will be what is "expected" by the ear, which is an exponential growth in frequency.
 
 #### Control messages
 These messages are used to change the chord that is sounding and the scale of the melody.
